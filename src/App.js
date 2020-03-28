@@ -16,8 +16,14 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Cookies from "js-cookie";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlusSquare, faSearch } from "@fortawesome/free-solid-svg-icons";
-library.add(faPlusSquare, faSearch);
+import {
+  faPlusSquare,
+  faSearch,
+  faClock,
+  faBell,
+  faEye
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faPlusSquare, faSearch, faClock, faEye, faBell);
 
 function App() {
   const tokenFromCookie = Cookies.get("userToken");

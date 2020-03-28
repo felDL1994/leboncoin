@@ -71,7 +71,7 @@
   color: white;
 }
 
-/* Login */
+/* Login -------------------*/
 .container-login {
   background-color: #fafafa;
   height: 660px;
@@ -141,4 +141,61 @@
   color: #4183d7;
   cursor: pointer;
   width: 500px;
+}
+
+/* SIGN UP------------------------ */
+
+.signup-container {
+  background-color: #fafafa;
+
+  height: 660px;
+  display: flex;
+  justify-content: center;
+}
+
+.signup--container {
+  background-color: white;
+  height: 410px;
+  width: 800px;
+  margin-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0px 0px 2px grey;
+}
+
+.signup-text {
+  width: 500px;
+}
+
+.signup-reason {
+  text-align: justify;
+  padding-right: 50px;
+  font-size: smaller;
+}
+
+.rowdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.signup-icon {
+  font-size: xx-large;
+  color: #4183d7;
+  padding-right: 20px;
+}
+.create--container {
+  width: 300px;
+}
+
+.create--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
