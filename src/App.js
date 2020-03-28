@@ -13,6 +13,7 @@ import Offer from "./containers/Offer";
 import SignUp from "./containers/SignUp";
 import Login from "./containers/Login";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Cookies from "js-cookie";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlusSquare, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -51,7 +52,7 @@ function App() {
             <Offers />
           </Route>
         </Switch>
-        <footer>FOOTER</footer>
+        <Footer></Footer>
       </Router>
     </div>
   );

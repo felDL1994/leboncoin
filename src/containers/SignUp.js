@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const SignUp = () => {
   return (
-    <span>
+    <div className="signup-container">
       <div>
         <button
           onClick={() => {
@@ -11,10 +11,10 @@ const SignUp = () => {
             Cookies.set("userToken", token, { expires: 3000 });
           }}
         >
-          Se connecter
+          S'enregistrer
         </button>
       </div>
-    </span>
+    </div>
   );
 };
 

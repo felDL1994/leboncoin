@@ -29,7 +29,11 @@ const Header = ({ user, setUser }) => {
 
           <span>
             {user === null ? (
-              <Link to="/log_in">Se connecter</Link>
+              <Link to="/log_in">
+                <span className="login--header">
+                  <button>Se connecter</button>
+                </span>
+              </Link>
             ) : (
               <span className="login--header">
                 <button
@@ -37,7 +41,7 @@ const Header = ({ user, setUser }) => {
                     Cookies.remove("userToken");
 
                     setUser(null);
-                    history.push("/");
+                    history.push("/log_in");
                   }}
                 >
                   Se déconnecter
