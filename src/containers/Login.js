@@ -10,7 +10,9 @@ const Login = props => {
         <button
           onClick={() => {
             const token = "1234";
-            Cookies.set("userToken", token, { expires: 3000 });
+
+            Cookies.set("userToken", token, { expires: 2000 });
+
             props.setUser({
               token: token
             });
@@ -20,7 +22,7 @@ const Login = props => {
         >
           Se connecter
         </button>
-      </div>{" "}
+      </div>
     </span>
   );
 };

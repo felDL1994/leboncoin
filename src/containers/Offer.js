@@ -1,28 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-function Offer() {
-  const { id } = useParams();
+const Offer = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
 
-  const [isLoading, setisLoading] = useState(true);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
         "https://leboncoin-api.herokuapp.com/api/offer/" + id
       );
-
       setData(response.data);
-      setisLoading(false);
+      setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
-  return <div className="Offer"></div>;
-}
+  return (
+    <div>
+      {isLoading === true ? (
+        <p>En cours de chargement ...</p>
+      ) : (
+        <div>
+          <span>{data.title}</span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Offer;

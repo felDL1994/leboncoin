@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,8 +12,11 @@ import Offers from "./containers/Offers";
 import Offer from "./containers/Offer";
 import SignUp from "./containers/SignUp";
 import Login from "./containers/Login";
+import Header from "./components/Header";
 import Cookies from "js-cookie";
-import "./App.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlusSquare, faSearch } from "@fortawesome/free-solid-svg-icons";
+library.add(faPlusSquare, faSearch);
 
 function App() {
   const tokenFromCookie = Cookies.get("userToken");
@@ -24,45 +28,30 @@ function App() {
     newState = null;
   }
 
-  const [user, setUser] = useState({ newState });
+  const [user, setUser] = useState(newState);
 
   return (
     <div className="App">
       <Router>
-        {user === null ? <Redirect to="/sign_up"></Redirect> : null}
-
-        <header>
-          <p>Logo</p>
-
-          {user === null ? (
-            <Link to="/log_in">Se connecter</Link>
-          ) : (
-            <button
-              onClick={() => {
-                Cookies.remove("userToken");
-                setUser(null);
-              }}
-            >
-              Se déconnecter
-            </button>
-          )}
-        </header>
+        {/* {user === null ? <Redirect to="/" /> : null} */}
+        <Header user={user} setUser={setUser}></Header>
 
         <Switch>
+          <Route path="/offer/:id">
+            <Offer />
+          </Route>
+
           <Route path="/sign_up">
-            <SignUp></SignUp>
+            <SignUp />
           </Route>
           <Route path="/log_in">
-            <Login setUser={setUser}>Se connecter!</Login>
-          </Route>
-          <Route path="/offer/:id">
-            <Offer></Offer>
+            <Login setUser={setUser} />
           </Route>
           <Route path="/">
-            <Offers></Offers>
+            <Offers />
           </Route>
         </Switch>
-        <footer>Footer</footer>
+        <footer>FOOTER</footer>
       </Router>
     </div>
   );
