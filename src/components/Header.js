@@ -20,22 +20,26 @@ const Header = ({ user, setUser }) => {
                 une annonce
               </button>
             </span>
-            <span className="search--header">
-              <button>
-                <FontAwesomeIcon icon="search"></FontAwesomeIcon> Rechercher
-              </button>
-            </span>
+            <Link to="/">
+              <span className="search--header">
+                <button>
+                  <FontAwesomeIcon icon="search"></FontAwesomeIcon> Rechercher
+                </button>
+              </span>
+            </Link>
           </div>
 
           <span>
             {user === null ? (
               <Link to="/log_in">
                 <span className="login--header">
+                  <FontAwesomeIcon icon="user"></FontAwesomeIcon>
                   <button>Se connecter</button>
                 </span>
               </Link>
             ) : (
               <span className="login--header">
+                <FontAwesomeIcon icon="user"></FontAwesomeIcon>
                 <button
                   onClick={() => {
                     Cookies.remove("userToken");

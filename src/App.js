@@ -21,9 +21,10 @@ import {
   faSearch,
   faClock,
   faBell,
-  faEye
+  faEye,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faPlusSquare, faSearch, faClock, faEye, faBell);
+library.add(faPlusSquare, faSearch, faClock, faEye, faBell, faUser);
 
 function App() {
   const tokenFromCookie = Cookies.get("userToken");

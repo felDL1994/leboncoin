@@ -22,12 +22,27 @@ function Offers() {
       {isLoading === true ? (
         <p>En cours de chargement ...</p>
       ) : (
-        <div>
+        <div className="container--item">
+          <h1>items</h1>
           {data.offers.map((offer, index) => {
             return (
-              <Link to={"/offer/" + offer._id}>
-                <div key={offer._id}>{offer.title}></div>;
-              </Link>
+              <div className="card--item">
+                <div className="card--item--picture">
+                  <img
+                    src={offer.pictures}
+                    style={{ objectFit: "cover" }}
+                    alt=""
+                  />
+                </div>
+                <div className="card--item--text">
+                  <Link to={"/offer/" + offer._id}>
+                    <div key={offer._id}>
+                      <p>{offer.title}</p>
+                      <p>{offer.description}</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             );
           })}
         </div>

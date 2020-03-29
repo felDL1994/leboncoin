@@ -1,5 +1,6 @@
 import React from "react";
 import Cookies from "js-cookie";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SignUp = () => {
@@ -19,7 +20,7 @@ const SignUp = () => {
                   <p>
                     Publiez vos annonces rapidement avec vos informations
                     pré-remplies chaque fois que vous souhaitez déposer une
-                    nouvelle annonce
+                    nouvelle annonce.
                   </p>
                 </div>
               </div>
@@ -33,7 +34,7 @@ const SignUp = () => {
                   <h4>Soyez les premiers informés</h4>
                   <p>
                     Créez des alertes Immo ou Emploi et ne manquez jamais
-                    l'annonce qui vous intéresse
+                    l'annonce qui vous intéresse.
                   </p>
                 </div>
               </div>
@@ -58,22 +59,43 @@ const SignUp = () => {
         <div className="create--container">
           <h3>Créer un compte</h3>
           <div className="form">
-            <p>Pseudo *</p>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <p>Adresse email *</p>
-            <p>Mot de passe *</p>
+            <p>Pseudo*</p>
+            <textarea name="" id="" cols="56" rows="1"></textarea>
+            <p>Adresse email*</p>
+            <textarea name="" id="" cols="56" rows="1"></textarea>
+
+            <div className="pw">
+              <div className="pw--create">
+                <p>Mot de passe*</p>
+                <textarea name="" id="" cols="24" rows="1"></textarea>
+              </div>
+              <div className="pw--confirm">
+                <p>Confirmer le mot de passe*</p>
+                <textarea name="" id="" cols="24" rows="1"></textarea>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <button
-              onClick={() => {
-                const token = "1234";
-                Cookies.set("userToken", token, { expires: 3000 });
-              }}
-            >
-              S'enregistrer
-            </button>
+          <div className="cgv">
+            <span>
+              <input type="checkbox" />
+              "J'accepte les{" "}
+              <span className="em">Conditions Générales de Vente</span> et les{" "}
+              <span className="em">Conditions Générales d'Utilisation</span>"
+            </span>
           </div>
+          <Link to="/">
+            <div className="confirm--create">
+              <button
+                onClick={() => {
+                  const token = "1234";
+                  Cookies.set("userToken", token, { expires: 3000 });
+                }}
+              >
+                Créer mon Compte Personnel
+              </button>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
