@@ -1,5 +1,5 @@
 .App {
-  background-color: #fafafa;
+  background-color: #ebe7e780;
 }
 
 /* HEADER------------------ */
@@ -289,23 +289,147 @@
 /* Item card main page */
 
 .card--item {
-  background-color: red;
+  background-color: grey;
   margin-bottom: 20px;
   margin-right: 250px;
   margin-left: 250px;
   height: 190px;
   border-radius: 4px;
   box-shadow: 0px 0px 4px grey;
+  display: flex;
+  justify-content: center, flex-start;
 }
 
 .card--item--picture > img {
-  height: 130px;
-  width: 130px;
-  border-radius: 5px;
+  height: 190px;
+  width: 190px;
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.card--item--picture {
+  background-color: #cad1d9;
+  height: 190px;
+  width: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card--item--text {
-  background-color: teal;
+  background-color: #ffffff;
+}
+
+.card-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.price {
+  color: #f56b2a;
+}
+
+.item-description {
+  padding-left: 20px;
+}
+
+:link,
+a:visited {
+  text-decoration: none;
+  color: Black;
+}
+
+/* Search bar */
+
+.search-bar {
+  background-color: white;
+  height: 125px;
+  width: 700px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 400px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.search-bar > input {
+  height: 40px;
+  width: 300px;
+  border-radius: 4px;
+  background-color: #f4f6f7;
+  color: grey;
+  font-size: 0.9em;
+  border: #f4f6f7;
+}
+
+.search-bar > button {
+  height: 40px;
+  width: 200px;
+  margin-left: 20px;
+  border-radius: 4px;
+  color: white;
+  background-color: #4183d7;
+}
+
+.id--content {
+  display: flex;
+  padding-top: 40px;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.card-total {
+  height: 620px;
+}
+
+.author-id {
+  background-color: white;
+  height: 150px;
+  width: 400px;
+  box-shadow: 0px 0px 6px grey;
+}
+
+.picture-id > img {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.picture-id {
+  background-color: rgb(211, 211, 211);
+  display: flex;
+  justify-content: center;
+}
+
+.card-id {
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 6px grey;
+  margin-right: 20px;
+}
+
+.text-id {
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.author-content {
+  padding-left: 15px;
+}
+
+.author-content > button {
+  height: 35px;
+  width: 210px;
+  color: white;
+  background-color: #f56b2a;
+  border-color: #f56b2a;
+  border-radius: 4px;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Offers() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,24 +24,47 @@ function Offers() {
         <p>En cours de chargement ...</p>
       ) : (
         <div className="container--item">
-          <h1>items</h1>
+          <div className="search-bar">
+            <input placeholder={"    Que recherchez-vous ?"} type="text" />
+            <button>Rechercher</button>
+          </div>
+
           {data.offers.map((offer, index) => {
+            const str = offer.created;
+
+            if (offer.pictures.length === 0) {
+              return null;
+            }
             return (
               <div className="card--item">
-                <div className="card--item--picture">
-                  <img
-                    src={offer.pictures}
-                    style={{ objectFit: "cover" }}
-                    alt=""
-                  />
-                </div>
-                <div className="card--item--text">
-                  <Link to={"/offer/" + offer._id}>
-                    <div key={offer._id}>
-                      <p>{offer.title}</p>
-                      <p>{offer.description}</p>
-                    </div>
-                  </Link>
+                <div className="card-item">
+                  <div className="card--item--picture">
+                    <img
+                      src={offer.pictures}
+                      style={{ objectFit: "cover" }}
+                      alt=""
+                    />
+                  </div>
+                  <div className="card--item--text">
+                    <Link to={"/offer/" + offer._id}>
+                      <div className="item-description" key={offer._id}>
+                        <h3>{offer.title}</h3>
+
+                        <p className="price">
+                          <strong>{offer.price + " €"}</strong>
+                        </p>
+                        <p style={{ color: "grey" }}>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Sed vitae unde doloribus itaque velit, illo
+                          mollitia molestias necessitatibus illum iure eveniet
+                          accusantium distinctio incidunt aliquam.
+                        </p>
+                        <h6>
+                          Créer le : {str.substr(0, 10)} à {str.substr(11)}
+                        </h6>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
             );

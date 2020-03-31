@@ -12,7 +12,9 @@ const Header = ({ user, setUser }) => {
         <div className="nav-header">
           <div className="nav--header">
             <span>
-              <img className="logo" src={Logo} alt="Logo" />
+              <Link to="/">
+                <img className="logo" src={Logo} alt="Logo" />
+              </Link>
             </span>
             <span>
               <button className="add--header">
