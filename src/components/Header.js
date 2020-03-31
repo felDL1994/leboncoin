@@ -17,10 +17,12 @@ const Header = ({ user, setUser }) => {
               </Link>
             </span>
             <span>
-              <button className="add--header">
-                <FontAwesomeIcon icon="plus-square"></FontAwesomeIcon> Déposer
-                une annonce
-              </button>
+              <Link to="/add">
+                <button className="add--header">
+                  <FontAwesomeIcon icon="plus-square"></FontAwesomeIcon> Déposer
+                  une annonce
+                </button>
+              </Link>
             </span>
             <Link to="/">
               <span className="search--header">

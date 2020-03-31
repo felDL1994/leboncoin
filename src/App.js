@@ -14,6 +14,7 @@ import SignUp from "./containers/SignUp";
 import Login from "./containers/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Add from "./containers/Add";
 import Cookies from "js-cookie";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -48,7 +49,9 @@ function App() {
           <Route path="/offer/:id">
             <Offer />
           </Route>
-
+          <Route path="/add" component={Add}>
+            <Add></Add>
+          </Route>
           <Route path="/sign_up">
             <SignUp />
           </Route>

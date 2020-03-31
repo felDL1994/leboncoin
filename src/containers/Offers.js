@@ -24,9 +24,24 @@ function Offers() {
         <p>En cours de chargement ...</p>
       ) : (
         <div className="container--item">
-          <div className="search-bar">
-            <input placeholder={"    Que recherchez-vous ?"} type="text" />
-            <button>Rechercher</button>
+          <div className="search-container">
+            <div className="elipsis-container">
+              <div />
+            </div>
+            <div className="search-bar">
+              <form>
+                <div className="search-input">
+                  <input placeholder="Que recherchez-vous ?" type="text" />
+                  <FontAwesomeIcon
+                    className="form-search-icon"
+                    icon="search"
+                    size="1x"
+                  />
+                </div>
+
+                <input type="submit" value="Rechercher" name="search" />
+              </form>
+            </div>
           </div>
 
           {data.offers.map((offer, index) => {
