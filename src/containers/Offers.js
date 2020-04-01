@@ -3,9 +3,12 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import Pagination from "../components/Pagination";
+
 function Offers() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
+  const [skip, setSkip] = useState(0);
 
   useEffect(async () => {
     const fetchData = async () => {
@@ -16,7 +19,7 @@ function Offers() {
       setIsLoading(false);
     };
     fetchData();
-  }, []);
+  }, [skip]);
 
   return (
     <div>
@@ -86,6 +89,7 @@ function Offers() {
           })}
         </div>
       )}
+      <Pagination count={data.count} skip={skip} setSkip={setSkip} />
     </div>
   );
 }

@@ -353,7 +353,6 @@ a:visited {
 }
 
 .search-bar {
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
