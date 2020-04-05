@@ -1,65 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Logo from "../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../assets/images/Vector.png";
+
 import Cookies from "js-cookie";
 
-const Header = ({ user, setUser }) => {
+const Header = ({ token, setToken, username }) => {
+  const [searchFocus, setSearchFocus] = useState(false);
   const history = useHistory();
   return (
-    <header className="header">
-      <div className="container-header">
-        <div className="nav-header">
-          <div className="nav--header">
-            <span>
-              <Link to="/">
-                <img className="logo" src={Logo} alt="Logo" />
-              </Link>
-            </span>
-            <span>
-              <Link to="/add">
-                <button className="add--header">
-                  <FontAwesomeIcon icon="plus-square"></FontAwesomeIcon> Déposer
-                  une annonce
-                </button>
-              </Link>
-            </span>
-            <Link to="/">
-              <span className="search--header">
-                <button>
-                  <FontAwesomeIcon icon="search"></FontAwesomeIcon> Rechercher
-                </button>
-              </span>
+    <nav>
+      <ul>
+        <div className="header-left">
+          <li>
+            <Link onFocus={() => setSearchFocus(false)} className="Link" to="/">
+              <img alt="Logo" src={Logo} />
             </Link>
-          </div>
-
-          <span>
-            {user === null ? (
-              <Link to="/log_in">
-                <span className="login--header">
-                  <FontAwesomeIcon icon="user"></FontAwesomeIcon>
-                  <button>Se connecter</button>
-                </span>
-              </Link>
-            ) : (
-              <span className="login--header">
-                <FontAwesomeIcon icon="user"></FontAwesomeIcon>
-                <button
-                  onClick={() => {
-                    Cookies.remove("userToken");
-
-                    setUser(null);
-                    history.push("/log_in");
-                  }}
-                >
-                  Se déconnecter
-                </button>
-              </span>
-            )}
-          </span>
+          </li>
+          <li>
+            <Link
+              onFocus={() => setSearchFocus(false)}
+              className="Link"
+              to="/publish"
+            >
+              <div className="publish-offer-button">
+                <FontAwesomeIcon icon={["far", "plus-square"]} size="2x" />
+                Déposer une annonce
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link
+              onFocus={() => setSearchFocus(true)}
+              className={`Link ${searchFocus ? "search-focus" : "search"}`}
+              to="/"
+            >
+              <div className="search-offer-button">
+                <FontAwesomeIcon className="header-search-icon" icon="search" />
+                Rechercher
+              </div>
+            </Link>
+          </li>
         </div>
-      </div>
-    </header>
+        <li className="header-right">
+          {!token ? (
+            <Link
+              onFocus={() => setSearchFocus(false)}
+              className="Link login"
+              to="/log_in"
+            >
+              <div className="user-offer-button">
+                <FontAwesomeIcon className="user-icon" icon={["far", "user"]} />
+                Se connecter
+              </div>
+            </Link>
+          ) : (
+            <div
+              onClick={() => {
+                setToken(null);
+                Cookies.remove("token");
+                Cookies.remove("username");
+                history.push("/");
+              }}
+              onFocus={() => setSearchFocus(false)}
+              className="Link login"
+            >
+              <div className="user-offer-button">
+                <p>{username}</p>
+                Se déconnecter
+              </div>
+            </div>
+          )}
+        </li>
+      </ul>
+    </nav>
   );
 };
 

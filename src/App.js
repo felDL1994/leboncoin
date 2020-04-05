@@ -1,70 +1,58 @@
 import React, { useState } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  useHistory,
-  Redirect
-} from "react-router-dom";
+import Cookies from "js-cookie";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Header from "./components/Header";
 import Offers from "./containers/Offers";
 import Offer from "./containers/Offer";
-import SignUp from "./containers/SignUp";
 import Login from "./containers/Login";
-import Header from "./components/Header";
+import SignUp from "./containers/SignUp";
+import Publish from "./containers/Publish";
+import Payment from "./containers/Payment";
 import Footer from "./components/Footer";
-import Add from "./containers/Add";
-import Cookies from "js-cookie";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faPlusSquare,
-  faSearch,
-  faClock,
-  faBell,
-  faEye,
-  faUser
-} from "@fortawesome/free-solid-svg-icons";
-library.add(faPlusSquare, faSearch, faClock, faEye, faBell, faUser);
+import { faSearch, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faSearch, faShoppingCart);
 
 function App() {
-  const tokenFromCookie = Cookies.get("userToken");
+  const [token, setToken] = useState(Cookies.get("token") || null);
+  const [username, setUsername] = useState(Cookies.get("username") || "");
 
-  let newState;
-  if (tokenFromCookie) {
-    newState = { token: tokenFromCookie };
-  } else {
-    newState = null;
-  }
-
-  const [user, setUser] = useState(newState);
+  const onLogin = (token, username) => {
+    setToken(token);
+    setUsername(username);
+    Cookies.set("token", token);
+    Cookies.set("username", username);
+  };
 
   return (
-    <div className="App">
-      <Router>
-        {/* {user === null ? <Redirect to="/" /> : null} */}
-        <Header user={user} setUser={setUser}></Header>
-
-        <Switch>
-          <Route path="/offer/:id">
-            <Offer />
-          </Route>
-          <Route path="/add" component={Add}>
-            <Add></Add>
-          </Route>
-          <Route path="/sign_up">
-            <SignUp />
-          </Route>
-          <Route path="/log_in">
-            <Login setUser={setUser} />
-          </Route>
-          <Route path="/">
-            <Offers />
-          </Route>
-        </Switch>
-        <Footer></Footer>
-      </Router>
-    </div>
+    <Router className="App">
+      <Header setToken={setToken} token={token} username={username} />
+      <Switch>
+        <Route exact path="/">
+          <Offers />
+        </Route>
+        <Route path="/offer/:id">
+          <Offer />
+        </Route>
+        <Route path="/log_in/">
+          <Login onLogin={onLogin} />
+        </Route>
+        <Route path="/sign_up/">
+          <SignUp onLogin={onLogin} />
+        </Route>
+        <Route path="/publish/">
+          <Publish />
+        </Route>
+        <Route path="/payment/">
+          <Payment username={username} />
+        </Route>
+      </Switch>
+      <Footer />
+    </Router>
   );
 }
 

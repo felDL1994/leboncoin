@@ -1,65 +1,80 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Offer = () => {
+const moment = require("moment");
+require("moment/locale/fr");
+
+const Offer = props => {
+  const params = useParams();
+  const history = useHistory();
+  let id = params.id;
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
-
-  const { id } = useParams();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        "https://leboncoin-api.herokuapp.com/api/offer/" + id
-      );
-      setData(response.data);
-      setIsLoading(false);
+      try {
+        const response = await axios.get(
+          `https://leboncoin-api-final.herokuapp.com/offer/${id}`
+        );
+        console.log(response.data);
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.message);
+      }
     };
-
     fetchData();
   }, [id]);
 
-  const str = data.created;
-
-  return (
-    <div>
-      {isLoading === true ? (
-        <p>En cours de chargement ...</p>
-      ) : (
-        <div className="id--content">
-          <div className="card-total">
-            <div className="card-id">
-              <div className="picture-id">
-                <img src={data.pictures} alt="" />
-              </div>
-              <div className="text-id">
-                <h4>{data.title}</h4>
-                <p style={{ color: "#f56b2a" }}>{data.price} €</p>
-                <p>
-                  {str.substr(0, 10)} à {str.substr(11)}
-                </p>
-              </div>
-            </div>
-            <div className="description-id">
-              <h4>Description</h4>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
-              dolores eos vitae similique perferendis vel ad iure saepe maxime
-              soluta dolore, ratione, accusamus veniam beatae dicta nemo
-              asperiores, consequatur aut?
-            </div>
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
+    <div className="offer-container">
+      <div className="offer-creator">
+        <div className="offer">
+          <div className="offer-picture">
+            {data.picture ? (
+              <img alt="offer" src={data.picture.url} />
+            ) : (
+              <span>Pas de photo</span>
+            )}
           </div>
-          <div className="author-id">
-            <div className="author-content">
-              <h3>{data.creator.account.username}</h3>
-              <p style={{ color: "#4183d7" }}>
-                <strong>17 annonces en ligne</strong>
-              </p>
-              <button>Acheter</button>
+          <div className="offer-infos">
+            <div className="title-price">
+              <p>{data.title}</p>
+              <p>{data.price} €</p>
             </div>
+            <p>
+              {moment(data.created).format("L")} à{" "}
+              {moment(data.created).format("hh:mm")}
+            </p>
           </div>
         </div>
-      )}
+        <div className="creator">
+          <p>{data.creator.account.username}</p>
+          <button
+            onClick={() =>
+              history.push("/payment", {
+                productId: data._id,
+                img: data.picture.url,
+                title: data.title,
+                price: data.price
+              })
+            }
+          >
+            <FontAwesomeIcon
+              className="shopping-cart-icon"
+              icon="shopping-cart"
+            />
+            Acheter
+          </button>
+        </div>
+      </div>
+      <p className="description-title">Description</p>
+      <p className="description">{data.description}</p>
     </div>
   );
 };

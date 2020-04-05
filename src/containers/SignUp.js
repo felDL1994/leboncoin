@@ -1,102 +1,101 @@
-import React from "react";
-import Cookies from "js-cookie";
-import { Link, useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 
-const SignUp = () => {
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
+import Reason from "../components/Reason";
+
+const SignUp = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [checkbox, setCheckbox] = useState(false);
+
+  const history = useHistory();
+
+  const handleSignupSubmit = async e => {
+    try {
+      e.preventDefault();
+      if (!username || !email || !password || !confirmPassword || !checkbox) {
+        alert("Veuillez remplir tous les champs");
+      } else if (password !== confirmPassword) {
+        alert("Vos mots de passe ne sont pas identiques");
+      } else if (!checkbox) {
+        alert("Veuillez accepter les CGV et CGU");
+      } else {
+        const response = await axios.post(
+          "https://leboncoin-api-final.herokuapp.com/user/sign_up",
+          {
+            email: email,
+            username: username,
+            password: password
+          }
+        );
+        // console.log(response.data);
+
+        if (response.data.token) {
+          onLogin(response.data.token, response.data.account.username);
+          history.push("/");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="signup-container">
-      <div className="signup--container">
-        <div className="signup-text">
-          <h3>Pourquoi créer un compte ?</h3>
-          <div className="signup-text-text">
-            <div className="signup--text">
-              <div className="rowdiv">
-                <div className="signup-icon">
-                  <FontAwesomeIcon icon="clock"></FontAwesomeIcon>
-                </div>
-                <div className="signup-reason">
-                  <h4>Gagner du temps</h4>
-                  <p>
-                    Publiez vos annonces rapidement avec vos informations
-                    pré-remplies chaque fois que vous souhaitez déposer une
-                    nouvelle annonce.
-                  </p>
-                </div>
-              </div>
+      <div className="why-card">
+        <div className="title">POURQUOI CRÉER UN COMPTE</div>
+        <Reason
+          icon="clock"
+          title="Gagnez du temps"
+          description="Publiez vos annonces rapidement, avec vos informations pré-remplies chaque fois que vous souhaitez déposer une nouvelle annonce."
+        />
+        <Reason
+          icon="bell"
+          title="Soyez les premiers informés"
+          description="Créez des alertes Immo ou Emploi et ne manquez jamais l’annonce qui vous intéresse."
+        />
+        <Reason
+          icon="eye"
+          title="Visibilité"
+          description="Suivez les statistiques de vos annonces (nombre de fois où votre annonce a été vue, nombre de contacts reçus)."
+        />
+      </div>
+      <div className="signup-card">
+        <div className="title">CRÉER UN COMPTE</div>
+        <form onSubmit={handleSignupSubmit}>
+          <p>Pseudo *</p>
+          <input type="text" onChange={e => setUsername(e.target.value)} />
+          <p>Adresse email *</p>
+          <input type="text" onChange={e => setEmail(e.target.value)} />
+          <div className="password-and-confirm">
+            <div>
+              <p>Mot de passe *</p>
+              <input
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+              />
             </div>
-            <div className="signup--text">
-              <div className="rowdiv">
-                <div className="signup-icon">
-                  <FontAwesomeIcon icon="bell"></FontAwesomeIcon>
-                </div>
-                <div className="signup-reason">
-                  <h4>Soyez les premiers informés</h4>
-                  <p>
-                    Créez des alertes Immo ou Emploi et ne manquez jamais
-                    l'annonce qui vous intéresse.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="signup--text">
-              <div className="rowdiv">
-                <div className="signup-icon">
-                  <FontAwesomeIcon icon="eye"></FontAwesomeIcon>
-                </div>
-                <div className="signup-reason">
-                  <h4>Visibilité</h4>
-                  <p>
-                    Suivez les statistiques de vos annonces (nombre de fois où
-                    votre annonce a été vue, nombre de contacts reçus).
-                  </p>
-                </div>
-              </div>
+            <div>
+              <p>Confirmer le mot de passe *</p>
+              <input
+                type="password"
+                onChange={e => setConfirmPassword(e.target.value)}
+              />
             </div>
           </div>
-        </div>
-        <div className="create--container">
-          <h3>Créer un compte</h3>
-          <div className="form">
-            <p>Pseudo*</p>
-            <textarea name="" id="" cols="56" rows="1"></textarea>
-            <p>Adresse email*</p>
-            <textarea name="" id="" cols="56" rows="1"></textarea>
-
-            <div className="pw">
-              <div className="pw--create">
-                <p>Mot de passe*</p>
-                <textarea name="" id="" cols="24" rows="1"></textarea>
-              </div>
-              <div className="pw--confirm">
-                <p>Confirmer le mot de passe*</p>
-                <textarea name="" id="" cols="24" rows="1"></textarea>
-              </div>
-            </div>
+          <div className="check-and-accept-conditions">
+            <input onChange={() => setCheckbox(!checkbox)} type="checkbox" />
+            <p>
+              « J’accepte les <span>Conditions Générales de Vente </span> et les{" "}
+              <span>Conditions Générales d’Utilisation »</span>
+            </p>
           </div>
 
-          <div className="cgv">
-            <span>
-              <input type="checkbox" />
-              "J'accepte les{" "}
-              <span className="em">Conditions Générales de Vente</span> et les{" "}
-              <span className="em">Conditions Générales d'Utilisation</span>"
-            </span>
-          </div>
-          <Link to="/">
-            <div className="confirm--create">
-              <button
-                onClick={() => {
-                  const token = "1234";
-                  Cookies.set("userToken", token, { expires: 3000 });
-                }}
-              >
-                Créer mon Compte Personnel
-              </button>
-            </div>
-          </Link>
-        </div>
+          <input value="Créer mon Compte Personnel" type="submit" />
+        </form>
       </div>
     </div>
   );
