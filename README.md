@@ -1,5 +1,4 @@
 Ce projet a été réalisé durant la formation en bootcamp LEREACTEUR.
 
-![alt text](https://github.com/[felDL94]/[leboncoin]/blob/[branch]/leboncoin-main.jpg?raw=true)
-
-![Alt text](relative/path/to/leboncoin-main.jpg?raw=true "Page principale")
+Page principale
+<img width="1440" alt="leboncoin - main" src="https://user-images.githubusercontent.com/59562121/80490543-cbaa7380-8961-11ea-89ff-4678e208b677.png">
